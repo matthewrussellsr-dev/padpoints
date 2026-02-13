@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PadPoints — North Slope</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">PAD<span class="logo-accent">POINTS</span></span>
+      <span class="logo-sub">NORTH SLOPE · ALASKA</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html" class="nav-link active">MAP</a>
+      <a href="card.html" class="nav-link">CONTACT</a>
+      <a href="admin.html" class="nav-link nav-admin">⬡ ADMIN</a>
+    </nav>
+  </header>
+
+  <!-- SEARCH BAR -->
+  <div class="search-wrapper">
+    <div class="search-container">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search pads, roads, fields..." autocomplete="off" />
+      <span class="search-count" id="searchCount"></span>
+      <button class="search-clear" id="searchClear" title="Clear">✕</button>
+    </div>
+    <div class="search-tags" id="searchTags"></div>
+  </div>
+
+  <!-- MAP CONTAINER -->
+  <main class="map-wrapper">
+    <div class="map-container" id="mapContainer">
+      <!-- Map image — replace map.jpg with your actual North Slope map -->
+      <img src="assets/map.jpg" alt="North Slope Oil Field Map" class="map-image" id="mapImage" onerror="this.src='assets/map-placeholder.svg'" />
+      <!-- Pins rendered here by JS -->
+      <div class="pins-layer" id="pinsLayer"></div>
+      <!-- Crosshair when in admin mode -->
+      <div class="crosshair" id="crosshair"></div>
+    </div>
+
+    <!-- PIN TOOLTIP / POPUP -->
+    <div class="pin-popup" id="pinPopup">
+      <button class="popup-close" id="popupClose">✕</button>
+      <div class="popup-category" id="popupCategory"></div>
+      <h2 class="popup-title" id="popupTitle"></h2>
+      <div class="popup-image-wrap" id="popupImageWrap">
+        <img class="popup-image" id="popupImage" src="" alt="" />
+      </div>
+      <p class="popup-desc" id="popupDesc"></p>
+      <div class="popup-tags" id="popupTags"></div>
+      <div class="popup-meta" id="popupMeta"></div>
+    </div>
+
+    <!-- MAP LEGEND -->
+    <div class="legend" id="legend">
+      <div class="legend-title">LEGEND</div>
+      <div class="legend-items" id="legendItems"></div>
+    </div>
+  </main>
+
+  <!-- STATUS BAR -->
+  <footer class="statusbar">
+    <span id="statusPinCount">Loading...</span>
+    <span class="statusbar-sep">|</span>
+    <span id="statusSearch"></span>
+    <span class="statusbar-right">PADPOINTS.COM</span>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

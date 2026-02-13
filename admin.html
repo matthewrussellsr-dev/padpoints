@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PadPoints — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-page">
+
+  <!-- PASSWORD GATE -->
+  <div class="auth-gate" id="authGate">
+    <div class="auth-box">
+      <div class="auth-logo">PAD<span class="logo-accent">POINTS</span></div>
+      <div class="auth-sub">ADMIN ACCESS</div>
+      <input type="password" id="passwordInput" class="auth-input" placeholder="Enter password..." />
+      <button class="auth-btn" id="authBtn">UNLOCK</button>
+      <p class="auth-error" id="authError"></p>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL (hidden until auth) -->
+  <div class="admin-wrap" id="adminWrap" style="display:none">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="logo">PAD<span class="logo-accent">POINTS</span></span>
+        <span class="logo-sub">ADMIN PANEL</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="index.html" class="nav-link">← MAP</a>
+        <a href="card.html" class="nav-link">CONTACT</a>
+        <button class="nav-link nav-logout" id="logoutBtn">LOGOUT</button>
+      </nav>
+    </header>
+
+    <div class="admin-layout">
+
+      <!-- LEFT: MAP for placing pins -->
+      <div class="admin-map-panel">
+        <div class="admin-panel-label">
+          CLICK MAP TO PLACE PIN
+          <span class="admin-mode-badge" id="adminModeBadge">BROWSE MODE</span>
+        </div>
+        <div class="map-container" id="adminMapContainer">
+          <img src="assets/map.jpg" alt="Map" class="map-image" id="adminMapImage" onerror="this.src='assets/map-placeholder.svg'" />
+          <div class="pins-layer" id="adminPinsLayer"></div>
+          <div class="crosshair active" id="adminCrosshair"></div>
+        </div>
+        <div class="admin-coords-bar">
+          <span>X: <span id="coordX">—</span>%</span>
+          <span>Y: <span id="coordY">—</span>%</span>
+          <button class="btn-secondary" id="togglePlaceMode">ENABLE PLACE MODE</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM + PIN LIST -->
+      <div class="admin-sidebar">
+
+        <!-- PIN FORM -->
+        <div class="admin-section">
+          <div class="admin-section-title" id="formTitle">NEW PIN</div>
+          <input type="hidden" id="editingPinId" value="" />
+
+          <label class="admin-label">Title *</label>
+          <input type="text" class="admin-input" id="pinTitle" placeholder="Pad name, road, location..." />
+
+          <label class="admin-label">Description</label>
+          <textarea class="admin-input admin-textarea" id="pinDesc" placeholder="Details about this location..."></textarea>
+
+          <label class="admin-label">Category</label>
+          <select class="admin-input" id="pinCategory">
+            <option value="pad">Pad</option>
+            <option value="road">Road</option>
+            <option value="facility">Facility</option>
+            <option value="landmark">Landmark</option>
+            <option value="note">Note</option>
+            <option value="custom">Custom</option>
+          </select>
+
+          <label class="admin-label">Pin Color</label>
+          <div class="color-picker-row">
+            <input type="color" class="admin-color" id="pinColor" value="#00FFB2" />
+            <div class="color-presets">
+              <span class="color-swatch" data-color="#00FFB2" style="background:#00FFB2" title="Neon Green"></span>
+              <span class="color-swatch" data-color="#FF6B35" style="background:#FF6B35" title="Orange"></span>
+              <span class="color-swatch" data-color="#00C4FF" style="background:#00C4FF" title="Cyan"></span>
+              <span class="color-swatch" data-color="#FFD700" style="background:#FFD700" title="Gold"></span>
+              <span class="color-swatch" data-color="#FF3366" style="background:#FF3366" title="Red"></span>
+              <span class="color-swatch" data-color="#BF5FFF" style="background:#BF5FFF" title="Purple"></span>
+            </div>
+          </div>
+
+          <label class="admin-label">Tags (comma separated)</label>
+          <input type="text" class="admin-input" id="pinTags" placeholder="oil, pad, gravel road, compressor..." />
+
+          <label class="admin-label">Image URL <span class="admin-label-note">(optional)</span></label>
+          <input type="text" class="admin-input" id="pinImage" placeholder="https://..." />
+
+          <label class="admin-label">Coordinates <span class="admin-label-note">(click map or enter manually)</span></label>
+          <div class="coords-row">
+            <input type="number" class="admin-input" id="pinX" placeholder="X %" step="0.01" min="0" max="100" />
+            <input type="number" class="admin-input" id="pinY" placeholder="Y %" step="0.01" min="0" max="100" />
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-primary" id="savePin">SAVE PIN</button>
+            <button class="btn-secondary" id="clearForm">CLEAR</button>
+          </div>
+          <p class="form-status" id="formStatus"></p>
+        </div>
+
+        <!-- PIN LIST -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            ALL PINS
+            <span class="pin-list-count" id="pinListCount">0</span>
+          </div>
+          <input type="text" class="admin-input" id="pinListSearch" placeholder="Filter pins..." />
+          <div class="pin-list" id="pinList">
+            <div class="pin-list-loading">Loading pins...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

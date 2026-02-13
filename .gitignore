@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# No node_modules (this project has none)
+node_modules/
+
+# Don't accidentally commit secrets
+# (config.js contains your Supabase keys and admin password)
+# If you want extra security, rename config.js to config.example.js
+# and keep the real one local only — but then you can't deploy via GitHub Pages.
+# The anon key is safe to expose publicly; the admin password protects editing.

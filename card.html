@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PadPoints — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="card-page">
+
+  <!-- TOP NAV -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">PAD<span class="logo-accent">POINTS</span></span>
+      <span class="logo-sub">NORTH SLOPE · ALASKA</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html" class="nav-link">MAP</a>
+      <a href="card.html" class="nav-link active">CONTACT</a>
+      <a href="admin.html" class="nav-link nav-admin">⬡ ADMIN</a>
+    </nav>
+  </header>
+
+  <main class="card-main">
+
+    <!-- CARD GLOW BG -->
+    <div class="card-bg-glow"></div>
+
+    <!-- BUSINESS CARD -->
+    <div class="biz-card" id="bizCard">
+
+      <div class="biz-card-top">
+        <!-- Avatar / Photo -->
+        <div class="biz-avatar-wrap">
+          <img src="assets/profile.jpg" alt="Profile Photo" class="biz-avatar" onerror="this.style.display='none'; document.getElementById('avatarInitials').style.display='flex'" />
+          <div class="biz-avatar-initials" id="avatarInitials" style="display:none">PP</div>
+        </div>
+
+        <!-- Name + Title -->
+        <div class="biz-identity">
+          <h1 class="biz-name" id="bizName">YOUR NAME</h1>
+          <p class="biz-title" id="bizTitle">Title · Company</p>
+          <p class="biz-location" id="bizLocation">
+            <span class="location-dot">◉</span> North Slope, Alaska
+          </p>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="biz-divider">
+        <span class="biz-divider-text">CONTACT</span>
+      </div>
+
+      <!-- Contact Links -->
+      <div class="biz-links" id="bizLinks">
+        <!-- Populated by JS from config or static below -->
+      </div>
+
+      <!-- Bio / About -->
+      <div class="biz-bio-section">
+        <div class="biz-divider">
+          <span class="biz-divider-text">ABOUT</span>
+        </div>
+        <p class="biz-bio" id="bizBio">
+          Edit your bio in js/config.js
+        </p>
+      </div>
+
+      <!-- Images / Portfolio -->
+      <div class="biz-gallery-section" id="bizGallerySection">
+        <div class="biz-divider">
+          <span class="biz-divider-text">GALLERY</span>
+        </div>
+        <div class="biz-gallery" id="bizGallery"></div>
+      </div>
+
+      <!-- Footer stamp -->
+      <div class="biz-stamp">
+        <span class="stamp-text">PADPOINTS.COM</span>
+        <span class="stamp-coords" id="stampCoords">70.2°N · 148.4°W</span>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/card.js"></script>
+</body>
+</html>
